@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Registro de Personas de Cádiz</title>
+</head>
+<body>
+<form id="cadizRegistrationForm" action="grabar.php" method="POST">
+    <label for="username">Nombre de Usuario:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+
+    <label for="population">Población:</label>
+    <select id="population" name="population" required>
+        <option value="" disabled selected>-- Seleccione --</option>
+        <option value="Alcalá de los Gazules">Alcalá de los Gazules</option>
+        <option value="Alcalá del Valle">Alcalá del Valle</option>
+        <option value="Algar">Algar</option>
+        <option value="Algeciras">Algeciras</option>
+        <option value="Algodonales">Algodonales</option>
+        <option value="Arcos de la Frontera">Arcos de la Frontera</option>
+        <option value="Barbate">Barbate</option>
+        <option value="Benalup-Casas Viejas">Benalup-Casas Viejas</option>
+        <option value="Benaocaz">Benaocaz</option>
+        <option value="Bornos">Bornos</option>
+        <option value="Cádiz">Cádiz</option>
+        <option value="Castellar de la Frontera">Castellar de la Frontera</option>
+        <option value="Chiclana de la Frontera">Chiclana de la Frontera</option>
+        <option value="Chipiona">Chipiona</option>
+        <option value="Conil de la Frontera">Conil de la Frontera</option>
+        <option value="El Bosque">El Bosque</option>
+        <option value="El Gastor">El Gastor</option>
+        <option value="El Puerto de Santa María">El Puerto de Santa María</option>
+        <option value="Espera">Espera</option>
+        <option value="Grazalema">Grazalema</option>
+        <option value="Jerez de la Frontera">Jerez de la Frontera</option>
+        <option value="Jimena de la Frontera">Jimena de la Frontera</option>
+        <option value="La Línea de la Concepción">La Línea de la Concepción</option>
+        <option value="Medina-Sidonia">Medina-Sidonia</option>
+        <option value="Olvera">Olvera</option>
+        <option value="Paterna de Rivera">Paterna de Rivera</option>
+        <option value="Prado del Rey">Prado del Rey</option>
+        <option value="Puerto Serrano">Puerto Serrano</option>
+        <option value="Rota">Rota</option>
+        <option value="San Fernando">San Fernando</option>
+        <option value="San José del Valle">San José del Valle</option>
+        <option value="San Roque">San Roque</option>
+        <option value="Sanlúcar de Barrameda">Sanlúcar de Barrameda</option>
+        <option value="Setenil de las Bodegas">Setenil de las Bodegas</option>
+        <option value="Tarifa">Tarifa</option>
+        <option value="Torre Alháquime">Torre Alháquime</option>
+        <option value="Trebujena">Trebujeña</option>
+        <option value="Ubrique">Ubrique</option>
+        <option value="Vejer de la Frontera">Vejer de la Frontera</option>
+        <option value="Villaluenga del Rosario">Villaluenga del Rosario</option>
+        <option value="Villamartín">Villamartín</option>
+        <option value="Zahara de la Sierra">Zahara de la Sierra</option>
+    </select>
+
+    <br>
+
+    <button type="submit">Registrarse</button>
+</form>
+
+<div id="errorMessages"></div>
+
+<script>
+    document.getElementById('cadizRegistrationForm').addEventListener('submit', function (e) {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const population = document.getElementById('population').value;
+        const errorMessages = [];
+
+        if (username.length < 8 || /\s/.test(username)) {
+            errorMessages.push('El nombre de usuario debe tener al menos 8 caracteres y no debe contener espacios en blanco.');
+        }
+
+        if (password.length < 6 || password.length > 10 || !/[A-Z]/.test(password) || !/\d/.test(password)) {
+            errorMessages.push('La contraseña debe tener de 6 a 10 caracteres alfanuméricos y contener al menos una letra mayúscula y un dígito.');
+        }
+
+        if (population === '') {
+            errorMessages.push('Debes seleccionar una población de la lista.');
+        }
+
+        const errorDiv = document.getElementById('errorMessages');
+        errorDiv.innerHTML = '';
+        if (errorMessages.length > 0) {
+            e.preventDefault(); // Evitar que se envíe el formulario si hay errores
+            errorDiv.style.color = 'red';
+            errorMessages.forEach(message => {
+                errorDiv.innerHTML += message + '<br>';
+            });
+        }
+    });
+</script>
+</body>
+</html>
